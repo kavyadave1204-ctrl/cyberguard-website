@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CyberGuard Password Analyzer</title>
+<link rel="stylesheet" href="style.css">
+
+<style>
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:Segoe UI,sans-serif;
+}
+
+body{
+height:100vh;
+display:flex;
+justify-content:center;
+align-items:center;
+background:linear-gradient(135deg,#0f172a,#1e293b,#0ea5e9);
+}
+
+.container{
+width:450px;
+padding:30px;
+border-radius:20px;
+background:rgba(255,255,255,0.08);
+backdrop-filter:blur(15px);
+box-shadow:0 0 25px rgba(14,165,233,.6);
+color:white;
+}
+
+h1{
+text-align:center;
+margin-bottom:10px;
+}
+
+p{
+text-align:center;
+margin-bottom:20px;
+}
+
+input{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+font-size:16px;
+margin-bottom:15px;
+}
+
+button{
+width:100%;
+padding:14px;
+border:none;
+border-radius:10px;
+background:#0ea5e9;
+color:white;
+font-size:16px;
+font-weight:bold;
+cursor:pointer;
+}
+
+.bar{
+width:100%;
+height:12px;
+background:#334155;
+border-radius:20px;
+margin-top:20px;
+overflow:hidden;
+}
+
+.fill{
+height:100%;
+width:0%;
+transition:.5s;
+}
+
+#result{
+margin-top:15px;
+font-size:20px;
+font-weight:bold;
+text-align:center;
+}
+
+.checks{
+margin-top:20px;
+}
+
+.checks div{
+margin:8px 0;
+}
+</style>
+</head>
+
+<body>
+
+<nav class="navbar">
+    <div class="logo">🛡️ CyberGuard</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+    </ul>
+  </nav>
+
+<div class="container">
+<h1>CyberGuard</h1>
+<a href="about.html">About us</a>
+<a href="tip.html">Security tips</a>
+<a href="contact.html">Contact</a>
+<p>Password Strength Analyzer</p>
+
+<input type="password" id="password" placeholder="Enter your password">
+
+<button onclick="checkPassword()">Check Password</button>
+
+<div class="bar">
+<div class="fill" id="fill"></div>
+</div>
+
+<div id="result"></div>
+
+<div class="checks">
+<div id="c1">At least 8 characters</div>
+<div id="c2"> Uppercase letter</div>
+<div id="c3"> Number</div>
+<div id="c4"> Special character</div>
+</div>
+</div>
+
+<script>
+function checkPassword(){
+
+let pwd=document.getElementById("password").value;
+let score=0;
+
+if(pwd.length>=8){
+score++;
+document.getElementById("c1").innerHTML=" At least 8 characters";
+}
+
+if(/[A-Z]/.test(pwd)){
+score++;
+document.getElementById("c2").innerHTML=" Uppercase letter";
+}
+
+if(/[0-9]/.test(pwd)){
+score++;
+document.getElementById("c3").innerHTML=" Number";
+}
+
+if(/[!@#$%^&*]/.test(pwd)){
+score++;
+document.getElementById("c4").innerHTML=" Special character";
+}
+
+let fill=document.getElementById("fill");
+let result=document.getElementById("result");
+
+if(score<=1){
+fill.style.width="25%";
+fill.style.background="red";
+result.innerHTML=" Weak Password";
+}
+else if(score<=3){
+fill.style.width="70%";
+fill.style.background="orange";
+result.innerHTML=" Medium Password";
+}
+else{
+fill.style.width="100%";
+fill.style.background="lime";
+result.innerHTML=" Strong Password";
+}
+}
+</script>
+
+<script>
+let passwordInput = document.getElementById("password");
+
+passwordInput.addEventListener("input", function () {
+
+    let pwd = passwordInput.value;
+    let score = 0;
+
+    if(pwd.length >= 8) score++;
+    if(/[A-Z]/.test(pwd)) score++;
+    if(/[0-9]/.test(pwd)) score++;
+    if(/[!@#$%^&*]/.test(pwd)) score++;
+
+    let fill = document.getElementById("fill");
+    let result = document.getElementById("result");
+
+    if(score <= 1){
+        fill.style.width = "25%";
+        fill.style.background = "red";
+        result.innerHTML = "Weak Password ❌";
+        result.style.color = "red";
+    }
+    else if(score <= 3){
+        fill.style.width = "70%";
+        fill.style.background = "orange";
+        result.innerHTML = "Medium Password ⚠️";
+        result.style.color = "orange";
+    }
+    else{
+        fill.style.width = "100%";
+        fill.style.background = "lime";
+        result.innerHTML = "Strong Password 🔐";
+        result.style.color = "lightgreen";
+    }
+
+});
+</script>
+
+</body>
+</html>
+
+<footer>
+    <p>© 2026 CyberGuard | Developed by Kavya Dave</p>
+</footer>
